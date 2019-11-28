@@ -41,4 +41,7 @@ ENV PATH=${PATH}:"${SPARK_HOME}/bin"
 ENV PYSPARK_DRIVER_PYTHON="jupyter"
 ENV PYSPARK_DRIVER_PYTHON_OPTS="lab"
 
+RUN mkdir -p /root/workspace
+WORKDIR /root/workspace
+
 CMD [ "/bin/bash" ]
