@@ -6,8 +6,7 @@ FROM kaggle/python:${BASE_TAG}
 # build time argumetnts
 ARG SPARK_VERSION=2.4.4
 ARG HADOOP_VERSION=2.7
-
-WORKDIR /root/workspace
+ARG NODEJS_VERSION=12
 
 # Cleaning script
 ADD clean-layer.sh  /tmp/clean-layer.sh
@@ -21,14 +20,17 @@ COPY --from=java /usr/local/openjdk-8/* /usr/local/openjdk-8/
 ENV JAVA_HOME="/usr/local/openjdk-8"
 ENV PATH=${PATH}:"${JAVA_HOME}/bin"
 
-# Setting up Spark
+# Setting up Spark and nodejs
 RUN curl --fail \
     https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
     --output spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     tar -xzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz -C /opt/ && \
     rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     ln -s /opt/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} /opt/spark && \
-    pip install --upgrade pip && pip install findspark && \
+    curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+    apt-get install -y nodejs && \
+    pip install --upgrade pip && \
+    pip install findspark && \
     /tmp/clean-layer.sh
 
 # Environment variable setup for spark
@@ -39,5 +41,7 @@ ENV PATH=${PATH}:"${SPARK_HOME}/bin"
 # Setting jupyter envs for spark
 ENV PYSPARK_DRIVER_PYTHON="jupyter"
 ENV PYSPARK_DRIVER_PYTHON_OPTS="lab"
+
+WORKDIR /root/workspace
 
 CMD [ "/bin/bash" ]
