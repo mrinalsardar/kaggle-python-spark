@@ -31,6 +31,8 @@ RUN curl --fail \
     apt-get install -y nodejs && \
     pip install --upgrade pip && \
     pip install findspark && \
+    pip install pyspark==${SPARK_VERSION} && \
+    chmod +x /tmp/clean-layer.sh && \
     /tmp/clean-layer.sh
 
 # Environment variable setup for spark
