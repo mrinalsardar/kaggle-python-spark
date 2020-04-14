@@ -1,0 +1,12 @@
+version: '2.1'
+
+services:
+  PySpark:
+    image: mrinal449/kaggle-python-spark
+    ports:
+      - "8888:8888"
+      - "4040:4040"
+    volumes:
+      - "/Users/sardarmrinal/workspace:/root/workspace"
+    command: pyspark
+
