@@ -1,18 +1,17 @@
 ARG BASE_TAG=latest
 
 FROM openjdk:8u232-jdk AS java
-FROM kaggle/python:${BASE_TAG}
+FROM gcr.io/kaggle-images/python:${BASE_TAG}
 
 # build time argumetnts
-ARG SPARK_VERSION=2.4.4
+ARG SPARK_VERSION=2.4.5
 ARG HADOOP_VERSION=2.7
 ARG NODEJS_VERSION=12
 
-# Cleaning script
+# Copy external files into the image
 ADD clean-layer.sh  /tmp/clean-layer.sh
-
-# Jupyter configuration file
 ADD jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config.py
+ADD requirements.txt /tmp/requirements.txt
 
 # Setting up java
 RUN mkdir -p /usr/local/openjdk-8 && mkdir -p /root/workspace
@@ -30,7 +29,7 @@ RUN curl --fail \
     curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs && \
     pip install --upgrade pip && \
-    pip install findspark && \
+    pip install -r /tmp/requirements.txt && \
     pip install pyspark==${SPARK_VERSION} && \
     chmod +x /tmp/clean-layer.sh && \
     /tmp/clean-layer.sh
