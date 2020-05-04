@@ -14,13 +14,13 @@ Using this image will help you get rid of the steps of installing Anaconda, inst
         pyspark:
             image: mrinal449/kaggle-python-spark
             ports:
-            - "8888:8888"
-            - "4040:4040"
+                - "8888:8888"
+                - "4040:4040"
             environment:
-            - PYSPARK_DRIVER_PYTHON=jupyter
-            - PYSPARK_DRIVER_PYTHON_OPTS=lab
+                - PYSPARK_DRIVER_PYTHON=jupyter
+                - PYSPARK_DRIVER_PYTHON_OPTS=lab
             volumes:
-            - "</path/to/your/workspace>:/root/workspace"
+                - "</path/to/your/workspace>:/root/workspace"
             command: pyspark
     ```
 3. Execute `docker-compose up` in `terminal/cmd` where the above file is saved.
