@@ -40,8 +40,8 @@ ENV HADOOP_HOME="/opt/spark"
 ENV PATH=${PATH}:"${SPARK_HOME}/bin"
 
 # Setting jupyter envs for spark
-ENV PYSPARK_DRIVER_PYTHON="jupyter"
-ENV PYSPARK_DRIVER_PYTHON_OPTS="lab"
+# ENV PYSPARK_DRIVER_PYTHON="jupyter"
+# ENV PYSPARK_DRIVER_PYTHON_OPTS="lab"
 
 WORKDIR /root/workspace
 
