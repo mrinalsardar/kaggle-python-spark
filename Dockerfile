@@ -26,7 +26,7 @@ RUN curl --fail \
     tar -xzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz -C /opt/ && \
     rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     ln -s /opt/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} /opt/spark && \
-    curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs && \
     pip install --upgrade pip && \
     pip install -r /tmp/requirements.txt && \
