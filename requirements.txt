@@ -1,4 +1,4 @@
 findspark
 pmdarima
 pyspellchecker
-pyarrow==0.14.1
+pyarrow==14.0.1
